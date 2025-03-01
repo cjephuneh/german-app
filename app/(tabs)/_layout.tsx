@@ -1,43 +1,63 @@
-import { Tabs } from 'expo-router';
-import React from 'react';
-import { Platform } from 'react-native';
-
-import { HapticTab } from '@/components/HapticTab';
-import { IconSymbol } from '@/components/ui/IconSymbol';
-import TabBarBackground from '@/components/ui/TabBarBackground';
-import { Colors } from '@/constants/Colors';
-import { useColorScheme } from '@/hooks/useColorScheme';
+import React from "react";
+import { Tabs } from "expo-router";
+import { Home, MessageCircle, BookOpen, Brain, User } from "lucide-react-native";
+import Colors from "@/constants/Colors";
 
 export default function TabLayout() {
-  const colorScheme = useColorScheme();
-
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
-        headerShown: false,
-        tabBarButton: HapticTab,
-        tabBarBackground: TabBarBackground,
-        tabBarStyle: Platform.select({
-          ios: {
-            // Use a transparent background on iOS to show the blur effect
-            position: 'absolute',
-          },
-          default: {},
-        }),
-      }}>
+        tabBarActiveTintColor: Colors.primary,
+        tabBarInactiveTintColor: Colors.textLight,
+        tabBarStyle: {
+          backgroundColor: Colors.card,
+          borderTopColor: Colors.border,
+        },
+        headerStyle: {
+          backgroundColor: Colors.card,
+        },
+        headerTintColor: Colors.text,
+        headerTitleStyle: {
+          fontWeight: '600',
+        },
+        tabBarLabelStyle: {
+          fontSize: 12,
+        },
+      }}
+    >
       <Tabs.Screen
         name="index"
         options={{
-          title: 'Home',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="house.fill" color={color} />,
+          title: "Home",
+          tabBarIcon: ({ color }) => <Home size={22} color={color} />,
         }}
       />
       <Tabs.Screen
-        name="explore"
+        name="conversation"
         options={{
-          title: 'Explore',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="paperplane.fill" color={color} />,
+          title: "Conversation",
+          tabBarIcon: ({ color }) => <MessageCircle size={22} color={color} />,
+        }}
+      />
+      <Tabs.Screen
+        name="library"
+        options={{
+          title: "Library",
+          tabBarIcon: ({ color }) => <BookOpen size={22} color={color} />,
+        }}
+      />
+      <Tabs.Screen
+        name="practice"
+        options={{
+          title: "Practice",
+          tabBarIcon: ({ color }) => <Brain size={22} color={color} />,
+        }}
+      />
+      <Tabs.Screen
+        name="profile"
+        options={{
+          title: "Profile",
+          tabBarIcon: ({ color }) => <User size={22} color={color} />,
         }}
       />
     </Tabs>
